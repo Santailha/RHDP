@@ -146,3 +146,33 @@ hr {
     transition: background-color 0.3s ease;
 }
 .button-link:hover { background-color: var(--cor-secundaria-amarelo-hover); }
+
+
+/* --- ESTILOS PARA O ÍCONE DE ADMIN --- */
+
+/* Torna o container um ponto de referência para o posicionamento do ícone */
+.container {
+    position: relative;
+}
+
+.admin-icon-link {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    display: block;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.admin-icon-link svg {
+    display: block;
+    width: 28px;
+    height: 28px;
+    stroke: var(--cor-primaria-azul); /* Usa a cor azul da sua marca */
+}
+
+.admin-icon-link:hover {
+    background-color: rgba(0,0,0,0.07);
+}
