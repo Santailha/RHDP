@@ -2,16 +2,15 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Resultado da Avaliação</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Painel Global 9 Box</title> <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container result-container">
-        <h1>Resultado da Avaliação</h1>
+        <h1>Painel Global</h1>
         <div id="loading">Carregando resultado...</div>
 
         <div id="result-content" style="display:none;">
-            <div id="general-info">
+            <div id="general-info" style="display: none;">
                 <h2 id="result-nome"></h2>
                 <p id="result-cargo"></p>
                 <hr>
@@ -56,13 +55,14 @@
                 </div>
             </div>
             
-            <div id="final-description-wrapper">
+            <div id="final-description-wrapper" style="display: none;">
                 <h3>Plano de Ação Sugerido:</h3>
                 <p id="result-description"></p>
             </div>
 
         </div>
-        <a href="formulario.html" class="button-link">Fazer Nova Avaliação</a>
+        
+        <a href="dashboard-admin.html" class="button-link">Painel do Administrador</a>
     </div>
     <script type="module" src="resultado.js"></script>
 </body>
