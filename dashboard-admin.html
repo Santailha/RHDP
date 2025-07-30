@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Administrador</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos para a tabela do dashboard */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--cor-caixa-neutra);
+            color: var(--cor-primaria-azul);
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        td a {
+            text-decoration: none;
+            color: var(--cor-primaria-azul);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Painel do Administrador</h1>
+        <p>Lista de todas as avaliações de desempenho realizadas.</p>
+        <a href="formulario.html" class="button-link" style="background-color: #555; margin-bottom: 20px;">Ir para Formulário</a>
+
+        <div id="evaluations-list">
+            <p>Carregando avaliações...</p>
+        </div>
+    </div>
+    <script type="module" src="dashboard-admin.js"></script>
+</body>
+</html>
