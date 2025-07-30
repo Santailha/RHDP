@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Avaliação de Desempenho</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Login de Avaliador</h1>
+        <form id="login-form">
+            <input type="email" id="email" placeholder="Seu e-mail" required>
+            <input type="password" id="password" placeholder="Sua senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="error-message" class="error"></p>
+        <div id="user-info" style="display: none;">
+            <p>Logado como: <span id="user-email"></span></p>
+            <button id="logout-button">Sair</button>
+        </div>
+    </div>
+    <script type="module" src="index.js"></script>
+</body>
+</html>
