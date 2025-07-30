@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Avaliação</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Avaliação de Desempenho e Comportamento</h1>
+        <form id="evaluation-form">
+            <h2>Dados do Colaborador</h2>
+            <label for="colaborador-nome">Nome do Colaborador:</label>
+            <input type="text" id="colaborador-nome" required>
+
+            <label for="colaborador-cargo">Cargo:</label>
+            <input type="text" id="colaborador-cargo" required>
+
+            <label for="coordenador-nome">Nome do Coordenador:</label>
+            <input type="text" id="coordenador-nome" required>
+
+            <div id="questions-container"></div>
+
+            <button type="submit">Finalizar e Ver Resultado</button>
+        </form>
+    </div>
+    <script type="module" src="formulario.js"></script>
+</body>
+</html>
