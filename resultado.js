@@ -7,8 +7,23 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-onAuthStateChanged(auth, user => {
-    if (!user) window.location.href = 'index.html';
+// MUDANÇA AQUI: Verificação de função (role)
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
+            // Se for admin, pode continuar e carregar o resultado
+            loadResult();
+        } else {
+            // Se não for admin, expulse da página
+            alert("Acesso negado. Esta página é restrita a administradores.");
+            window.location.href = 'index.html';
+        }
+    } else {
+        window.location.href = 'index.html';
+    }
 });
 
 const classificationMap = {
@@ -38,39 +53,26 @@ async function loadResult() {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
-
-            // Lógica de cálculo (permanece a mesma)
             const totalScore = data.answers.reduce((sum, answer) => sum + answer.score, 0);
             const averageScore = totalScore / data.answers.length;
             const finalScore = Math.round(averageScore);
             const classification = classificationMap[finalScore];
 
-            // --- NOVA LÓGICA DE RENDERIZAÇÃO ---
-
-            // 1. Preenche as informações gerais
             document.getElementById('result-nome').textContent = data.colaboradorNome;
             document.getElementById('result-cargo').textContent = data.colaboradorCargo;
 
-            // 2. Encontra a caixa correta na grade usando o atributo data-score
             const activeBox = document.querySelector(`.result-box[data-score="${finalScore}"]`);
 
             if (activeBox) {
-                // 3. Adiciona a classe 'active' para destacá-la
                 activeBox.classList.add('active');
-
-                // 4. Cria o "card" com o nome do colaborador
                 const employeeCard = document.createElement('div');
                 employeeCard.className = 'employee-card-result';
                 employeeCard.textContent = data.colaboradorNome;
-
-                // 5. Adiciona o card do colaborador dentro da caixa ativa
                 activeBox.appendChild(employeeCard);
             }
             
-            // 6. Preenche a descrição do plano de ação
             document.getElementById('result-description').textContent = classification.description;
 
-            // 7. Exibe o conteúdo e esconde o "loading"
             document.getElementById('loading').style.display = 'none';
             document.getElementById('result-content').style.display = 'block';
 
@@ -82,5 +84,3 @@ async function loadResult() {
         document.getElementById('loading').textContent = 'Erro ao carregar o resultado.';
     }
 }
-
-loadResult();
