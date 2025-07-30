@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado da Avaliação</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container result-container">
+        <h1>Resultado da Avaliação</h1>
+        <div id="loading">Carregando resultado...</div>
+        <div id="result-content" style="display:none;">
+            <h2 id="result-nome"></h2>
+            <p id="result-cargo"></p>
+            <hr>
+            <h3>Classificação Final:</h3>
+            <div class="final-classification">
+                <span id="result-score" class="score-badge"></span>
+                <span id="result-label"></span>
+            </div>
+            <p id="result-description"></p>
+        </div>
+        <a href="formulario.html" class="button-link">Fazer Nova Avaliação</a>
+    </div>
+    <script type="module" src="resultado.js"></script>
+</body>
+</html>
