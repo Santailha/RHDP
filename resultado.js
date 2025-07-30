@@ -1,23 +1,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// MUDANÇA AQUI: Verificação de função (role)
+// A verificação de permissão 'admin' continua a mesma
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         const userDocRef = doc(db, 'users', user.uid);
         const userDocSnap = await getDoc(userDocRef);
 
         if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
-            // Se for admin, pode continuar e carregar o resultado
-            loadResult();
+            // Se for admin, carregue o painel 9 Box global
+            loadGlobal9Box();
         } else {
-            // Se não for admin, expulse da página
             alert("Acesso negado. Esta página é restrita a administradores.");
             window.location.href = 'index.html';
         }
@@ -26,61 +25,62 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 
-const classificationMap = {
-    9: { label: 'Destaques', description: 'Profissional com alto desempenho e potencial. Reter e desenvolver para futuras posições de liderança.' },
-    8: { label: 'Aprimorar técnica', description: 'Alto potencial, mas precisa desenvolver habilidades técnicas para alcançar o próximo nível.' },
-    7: { label: 'Aprimorar comportamento', description: 'Bom desempenho técnico, mas precisa desenvolver habilidades comportamentais e de relacionamento.' },
-    6: { label: 'Aprimorar comportamento e técnica', description: 'Profissional em desenvolvimento. Precisa de um plano de ação focado em ambas as frentes.' },
-    5: { label: 'Desenvolver técnica', description: 'Demonstra potencial, mas o baixo desempenho técnico é um impeditivo. Focar em treinamento.' },
-    4: { label: 'Desenvolver comportamento', description: 'O desempenho é baixo devido a questões comportamentais. Requer feedback e acompanhamento próximo.' },
-    3: { label: 'Verificar situação', description: 'Potencial existe, mas o desempenho está muito abaixo. Investigar as causas (motivação, problemas pessoais, etc.).' },
-    2: { label: 'Trabalhar Valores', description: 'O desempenho é mediano, mas o comportamento não está alinhado à cultura. Risco para a equipe.' },
-    1: { label: 'Insuficiente', description: 'Baixo desempenho e baixo potencial/alinhamento. Possível desalinhamento com a função ou cultura. Ação urgente necessária.' }
-};
+async function loadGlobal9Box() {
+    // Esconde a mensagem de "loading" e mostra o conteúdo principal
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('result-content').style.display = 'block';
 
-async function loadResult() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const evaluationId = urlParams.get('id');
-
-    if (!evaluationId) {
-        document.getElementById('loading').textContent = 'ID da avaliação não encontrado.';
-        return;
+    // Remove as informações gerais de um único colaborador, pois agora é uma visão global
+    const generalInfo = document.getElementById('general-info');
+    if (generalInfo) {
+        generalInfo.style.display = 'none';
+    }
+    const descriptionWrapper = document.getElementById('final-description-wrapper');
+    if (descriptionWrapper) {
+        descriptionWrapper.style.display = 'none';
+    }
+    
+    // Altera o título da página para refletir a nova função
+    const mainTitle = document.querySelector('.container h1');
+    if(mainTitle) {
+        mainTitle.textContent = "Painel 9 Box Global";
     }
 
     try {
-        const docRef = doc(db, 'avaliacoes', evaluationId);
-        const docSnap = await getDoc(docRef);
+        // Busca TODAS as avaliações da coleção
+        const querySnapshot = await getDocs(collection(db, 'avaliacoes'));
 
-        if (docSnap.exists()) {
-            const data = docSnap.data();
+        if (querySnapshot.empty) {
+            console.log("Nenhuma avaliação encontrada para exibir no painel.");
+            return;
+        }
+
+        // Itera sobre CADA avaliação encontrada
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+
+            // Para cada avaliação, calcula a nota final
             const totalScore = data.answers.reduce((sum, answer) => sum + answer.score, 0);
             const averageScore = totalScore / data.answers.length;
             const finalScore = Math.round(averageScore);
-            const classification = classificationMap[finalScore];
 
-            document.getElementById('result-nome').textContent = data.colaboradorNome;
-            document.getElementById('result-cargo').textContent = data.colaboradorCargo;
+            // Encontra a caixa correta na grade para esta avaliação
+            const targetBox = document.querySelector(`.result-box[data-score="${finalScore}"]`);
 
-            const activeBox = document.querySelector(`.result-box[data-score="${finalScore}"]`);
-
-            if (activeBox) {
-                activeBox.classList.add('active');
+            if (targetBox) {
+                // Cria o "card" com o nome do colaborador
                 const employeeCard = document.createElement('div');
                 employeeCard.className = 'employee-card-result';
                 employeeCard.textContent = data.colaboradorNome;
-                activeBox.appendChild(employeeCard);
+
+                // Adiciona o card do colaborador dentro da caixa correta
+                // Uma caixa agora pode ter vários cards
+                targetBox.appendChild(employeeCard);
             }
-            
-            document.getElementById('result-description').textContent = classification.description;
+        });
 
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('result-content').style.display = 'block';
-
-        } else {
-            document.getElementById('loading').textContent = 'Avaliação não encontrada.';
-        }
     } catch (error) {
-        console.error("Erro ao buscar resultado:", error);
-        document.getElementById('loading').textContent = 'Erro ao carregar o resultado.';
+        console.error("Erro ao carregar o painel 9 Box: ", error);
+        alert("Ocorreu um erro ao carregar os dados.");
     }
 }
