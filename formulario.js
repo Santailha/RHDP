@@ -23,7 +23,7 @@ const questions = [
     { category: 'Comportamento', text: 'É confiável, comprometido e mantém uma postura ética em sua atuação?' }
 ];
 const options = [
-    { value: 9, label: 'Destaques' }, { value: 8, label: 'Aprimorar técnica' },
+    { value: 9, label: 'Destaques (Alta performance e forte alinhamento comportamental.)' }, { value: 8, label: 'Aprimorar técnica' },
     { value: 7, label: 'Aprimorar comportamento' }, { value: 6, label: 'Aprimorar comportamento e técnica' },
     { value: 5, label: 'Desenvolver técnica' }, { value: 4, label: 'Desenvolver comportamento' },
     { value: 3, label: 'Verificar situação' }, { value: 2, label: 'Trabalhar Valores' },
