@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-config.js";
 
 const app = initializeApp(firebaseConfig);
@@ -80,11 +80,35 @@ form.addEventListener('submit', async (e) => {
 
     try {
         const docRef = await addDoc(collection(db, 'avaliacoes'), evaluationData);
-        window.location.href = `resultado.html?id=${docRef.id}`;
+        // MUDANÇA AQUI: Redireciona para a página de sucesso
+        window.location.href = `sucesso.html`;
     } catch (error) {
         console.error("Erro ao salvar avaliação: ", error);
         alert("Ocorreu um erro ao salvar. Tente novamente.");
         submitButton.disabled = false;
-        submitButton.textContent = 'Finalizar e Ver Resultado';
+        submitButton.textContent = 'Finalizar Avaliação';
+    }
+});
+
+// MUDANÇA AQUI: Adiciona link para o painel de admin se o usuário for admin
+const authForLink = getAuth(app);
+onAuthStateChanged(authForLink, async (user) => {
+    if (user) {
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
+            // Verifica se o link já não existe para não duplicar
+            if (!document.getElementById('admin-link')) {
+                const adminLink = document.createElement('a');
+                adminLink.id = 'admin-link'; // ID para evitar duplicação
+                adminLink.href = 'dashboard-admin.html';
+                adminLink.textContent = 'Painel do Administrador';
+                adminLink.classList.add('button-link');
+                adminLink.style.backgroundColor = '#2c3e50';
+                adminLink.style.marginTop = '20px';
+                document.querySelector('.container').appendChild(adminLink);
+            }
+        }
     }
 });
