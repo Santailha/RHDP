@@ -80,7 +80,6 @@ form.addEventListener('submit', async (e) => {
 
     try {
         const docRef = await addDoc(collection(db, 'avaliacoes'), evaluationData);
-        // MUDANÇA AQUI: Redireciona para a página de sucesso
         window.location.href = `sucesso.html`;
     } catch (error) {
         console.error("Erro ao salvar avaliação: ", error);
@@ -90,25 +89,27 @@ form.addEventListener('submit', async (e) => {
     }
 });
 
-// MUDANÇA AQUI: Adiciona link para o painel de admin se o usuário for admin
+// MUDANÇA AQUI: Lógica para MOSTRAR o ícone, em vez de criar um botão.
 const authForLink = getAuth(app);
 onAuthStateChanged(authForLink, async (user) => {
     if (user) {
         const userDocRef = doc(db, 'users', user.uid);
         const userDocSnap = await getDoc(userDocRef);
 
+        // Remove o botão antigo, caso ele exista de uma versão anterior do código
+        const oldAdminLink = document.getElementById('admin-link');
+        if (oldAdminLink) {
+            oldAdminLink.remove();
+        }
+
+        // Procura pelo novo ícone no HTML
+        const adminIconLink = document.getElementById('admin-icon-link');
         if (userDocSnap.exists() && userDocSnap.data().role === 'admin') {
-            // Verifica se o link já não existe para não duplicar
-            if (!document.getElementById('admin-link')) {
-                const adminLink = document.createElement('a');
-                adminLink.id = 'admin-link'; // ID para evitar duplicação
-                adminLink.href = 'dashboard-admin.html';
-                adminLink.textContent = 'Painel do Administrador';
-                adminLink.classList.add('button-link');
-                adminLink.style.backgroundColor = '#2c3e50';
-                adminLink.style.marginTop = '20px';
-                document.querySelector('.container').appendChild(adminLink);
-            }
+            // Se for admin, torna o ícone visível
+            if(adminIconLink) adminIconLink.style.display = 'block';
+        } else {
+            // Garante que o ícone esteja escondido para não-admins
+            if(adminIconLink) adminIconLink.style.display = 'none';
         }
     }
 });
