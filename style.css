@@ -104,3 +104,73 @@ hr {
     border-radius: 4px;
 }
 .button-link:hover { background-color: #27ae60; }
+
+/* --- NOVOS ESTILOS PARA A GRADE DE RESULTADO --- */
+
+#result-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.result-box {
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.score-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #adb5bd;
+}
+
+.score-label {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+/* Estilo da caixa ATIVA (onde o colaborador está) */
+.result-box.active {
+    background-color: #e0f7fa;
+    border-color: #007bff;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+}
+
+.result-box.active .score-number,
+.result-box.active .score-label {
+    color: #004085;
+}
+
+/* Estilo para o "card" do colaborador */
+.employee-card-result {
+    background-color: #fff;
+    color: #007bff;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#final-description-wrapper {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f1f3f5;
+    border-radius: 8px;
+    text-align: left;
+}
+#final-description-wrapper h3 {
+    margin-top: 0;
+}
