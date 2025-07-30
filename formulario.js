@@ -23,11 +23,11 @@ const questions = [
     { category: 'Comportamento', text: 'É confiável, comprometido e mantém uma postura ética em sua atuação?' }
 ];
 const options = [
-    { value: 9, label: 'Destaques (Alta performance e forte alinhamento comportamental.)' }, { value: 8, label: 'Aprimorar técnica' },
-    { value: 7, label: 'Aprimorar comportamento' }, { value: 6, label: 'Aprimorar comportamento e técnica' },
-    { value: 5, label: 'Desenvolver técnica' }, { value: 4, label: 'Desenvolver comportamento' },
-    { value: 3, label: 'Verificar situação' }, { value: 2, label: 'Trabalhar Valores' },
-    { value: 1, label: 'Insuficiente' }
+    { value: 9, label: 'Destaques (Alta performance e forte alinhamento comportamental.)' }, { value: 8, label: 'Aprimorar técnica (Alto comportamento, mas com lacunas técnicas.)' },
+    { value: 7, label: 'Aprimorar comportamento (Bom desempenho técnico, mas precisa melhorar atitude.)' }, { value: 6, label: 'Aprimorar comportamento e técnica (Parcialmente, há fragilidades em ambos os pilares.)' },
+    { value: 5, label: 'Desenvolver técnica (Demonstra potencial e boa postura, mas falta conhecimento técnico.)' }, { value: 4, label: 'Desenvolver comportamento (Demonstra comportamentos desalinhados ou riscos à cultura.)' },
+    { value: 3, label: 'Verificar situação (Instável, pode estar em adaptação ou com questões externas afetando.)' }, { value: 2, label: 'Trabalhar Valores (Postura ou atitude em desacordo com os valores organizacionais. Impacta negativamente o ambiente.)' },
+    { value: 1, label: 'Insuficiente (Desempenho e comportamento críticos. Pode comprometer a equipe.)' }
 ];
 
 const questionsContainer = document.getElementById('questions-container');
