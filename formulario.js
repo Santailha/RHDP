@@ -16,7 +16,7 @@ onAuthStateChanged(auth, (user) => {
 const questions = [
     { category: 'Desempenho', text: 'Este colaborador entrega os resultados esperados para sua função com qualidade e no prazo?' },
     { category: 'Desempenho', text: 'Demonstra domínio técnico e conhecimento necessário para exercer suas atividades?' },
-    { category: 'Desempenho', text: 'Tem iniciativa e autonomia para resolver problemas e buscar melhorias no dia a dia?' },
+    { category: 'Desempenho', text: 'Tem iniciativa para resolver problemas e buscar melhorias no dia a dia?' },
     { category: 'Desempenho', text: 'Contribui efetivamente para o alcance das metas da equipe/setor?' },
     { category: 'Comportamento', text: 'Demonstra atitudes alinhadas aos valores e à cultura da empresa?' },
     { category: 'Comportamento', text: 'Colabora com a equipe, comunica-se bem e mantém uma postura respeitosa com colegas e clientes?' },
