@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+h1, h2, h3 { color: #2c3e50; }
+input[type="text"], input[type="email"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+button:hover { background-color: #2980b9; }
+button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+.error { color: #e74c3c; font-weight: bold; }
+
+.question-block {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.question-block h3 {
+    margin-top: 0;
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 10px;
+}
+
+.result-container { text-align: center; }
+#result-nome {
+    margin-top: 20px;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    margin: 30px 0;
+}
+.final-classification {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+}
+.score-badge {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+#result-label {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+    vertical-align: middle;
+}
+#result-description {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-top: 10px;
+}
+.button-link {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 20px;
+    width: auto;
+    padding: 10px 30px;
+    background-color: #2ecc71;
+    color: white;
+    border-radius: 4px;
+}
+.button-link:hover { background-color: #27ae60; }
